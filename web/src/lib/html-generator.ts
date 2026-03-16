@@ -10,7 +10,7 @@ function escapeHtml(str: string): string {
 }
 
 export function generateSignatureHtml(data: SignatureData): string {
-	const { name, pronouns, titles, email, phone, website, socialLinks, colors, fonts, layout } = data;
+	const { name, pronouns, subtitleText, subtitleOrganization, subtitleUrl, titles, email, phone, website, socialLinks, colors, fonts, layout } = data;
 	const imgSrc = data.profileImageUrl || data.profileImage;
 	const hasImage = !!imgSrc;
 	const hasContact = !!(email || phone || website);
@@ -46,6 +46,26 @@ export function generateSignatureHtml(data: SignatureData): string {
 		: '';
 	const nameHtml = name
 		? `<tr><td style="font-family: ${fonts.fontFamily}; font-size: ${fonts.nameSize}px; font-weight: bold; color: ${colors.nameColor}; padding-bottom: 2px; white-space: nowrap;">${escapeHtml(name)}${pronounsSpan}</td></tr>`
+		: '';
+
+	// Build subtitle
+	let subtitleContent = '';
+	if (subtitleText || subtitleOrganization) {
+		let orgPart = '';
+		if (subtitleOrganization) {
+			const orgBold = `<strong>${escapeHtml(subtitleOrganization)}</strong>`;
+			if (subtitleUrl) {
+				const href = subtitleUrl.startsWith('http') ? subtitleUrl : `https://${subtitleUrl}`;
+				orgPart = `<a href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none; font-weight: bold;">${escapeHtml(subtitleOrganization)}</a>`;
+			} else {
+				orgPart = orgBold;
+			}
+		}
+		const parts = [subtitleText ? escapeHtml(subtitleText) : '', orgPart].filter(Boolean);
+		subtitleContent = parts.join(', ');
+	}
+	const subtitleHtml = subtitleContent
+		? `<tr><td style="font-family: ${fonts.fontFamily}; font-size: ${fonts.subtitleSize}px; color: ${colors.titleColor}; padding-bottom: 2px;">${subtitleContent}</td></tr>`
 		: '';
 
 	// Build titles
@@ -107,7 +127,7 @@ export function generateSignatureHtml(data: SignatureData): string {
 		return `<table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fonts.fontFamily};">
 ${signoffHtml}
 ${hasImage ? `<tr><td style="padding-bottom: 8px;"><img src="${escapeHtml(imgSrc)}" width="${layout.imageSize}" height="${layout.imageSize}" style="border-radius: ${borderRadius}; display: block; object-fit: cover;" alt="Profile photo" /></td></tr>` : ''}
-${nameHtml ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${nameHtml}</table></td></tr>` : ''}
+${nameHtml ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${nameHtml}${subtitleHtml}</table></td></tr>` : ''}
 ${hasTitles || hasContact ? dividerHtml : ''}
 ${titlesHtml ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${titlesHtml}</table></td></tr>` : ''}
 ${hasContact ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${contactHtml}</table></td></tr>` : ''}
@@ -123,7 +143,8 @@ ${imageHtml}
 <td style="vertical-align: top;">
 <table cellpadding="0" cellspacing="0" border="0">
 ${nameHtml}
-${hasTitles && nameHtml ? dividerHtml : ''}
+${subtitleHtml}
+${(hasTitles || subtitleHtml) && nameHtml ? dividerHtml : ''}
 ${titlesHtml}
 ${hasContact && (hasTitles || nameHtml) ? dividerHtml : ''}
 ${contactHtml}

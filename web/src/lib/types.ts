@@ -39,6 +39,7 @@ export interface ColorSettings {
 export interface FontSettings {
 	fontFamily: string;
 	nameSize: number;
+	subtitleSize: number;
 	titleSize: number;
 	textSize: number;
 }
@@ -55,6 +56,9 @@ export interface LayoutSettings {
 export interface SignatureData {
 	name: string;
 	pronouns: string;
+	subtitleText: string;
+	subtitleOrganization: string;
+	subtitleUrl: string;
 	profileImage: string; // base64 data URL or external URL
 	profileImageUrl: string; // external URL for email HTML
 	titles: TitleEntry[];
@@ -70,6 +74,9 @@ export interface SignatureData {
 export const defaultSignatureData: SignatureData = {
 	name: '',
 	pronouns: '',
+	subtitleText: '',
+	subtitleOrganization: '',
+	subtitleUrl: '',
 	profileImage: '',
 	profileImageUrl: '',
 	titles: [{ title: '', organization: '', url: '' }],
@@ -88,6 +95,7 @@ export const defaultSignatureData: SignatureData = {
 	fonts: {
 		fontFamily: 'Arial, Helvetica, sans-serif',
 		nameSize: 18,
+		subtitleSize: 15,
 		titleSize: 13,
 		textSize: 12,
 	},

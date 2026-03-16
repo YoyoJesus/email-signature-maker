@@ -162,6 +162,21 @@
 							</div>
 
 							<div>
+								<label class="!mb-1">Subtitle <span class="text-slate-400">(optional)</span></label>
+								<div class="flex gap-2">
+									<div class="flex-1">
+										<input type="text" bind:value={data.subtitleText} placeholder="Computer Science Student" />
+									</div>
+									<div class="flex-1">
+										<input type="text" bind:value={data.subtitleOrganization} placeholder="Kent State University" />
+									</div>
+									<div class="flex-1">
+										<input type="url" bind:value={data.subtitleUrl} placeholder="Organization URL (optional)" />
+									</div>
+								</div>
+							</div>
+
+							<div>
 								<div class="flex items-center justify-between mb-2">
 									<label class="!mb-0">Titles / Roles</label>
 									<button
@@ -405,10 +420,14 @@
 							<!-- Font Sizes -->
 							<fieldset>
 								<legend class="text-sm font-semibold text-slate-700 mb-2">Font Sizes</legend>
-								<div class="grid grid-cols-3 gap-3">
+								<div class="grid grid-cols-2 gap-3">
 									<div>
 										<label for="nameSize">Name: {data.fonts.nameSize}px</label>
 										<input type="range" id="nameSize" bind:value={data.fonts.nameSize} min="12" max="30" step="1" class="w-full" />
+									</div>
+									<div>
+										<label for="subtitleSize">Subtitle: {data.fonts.subtitleSize}px</label>
+										<input type="range" id="subtitleSize" bind:value={data.fonts.subtitleSize} min="10" max="24" step="1" class="w-full" />
 									</div>
 									<div>
 										<label for="titleSize">Title: {data.fonts.titleSize}px</label>

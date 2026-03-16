@@ -14,7 +14,7 @@ function hexToTypstRgb(hex: string): string {
 }
 
 export function generateTypstCode(data: SignatureData): string {
-	const { name, pronouns, titles, email, phone, website, socialLinks, colors, fonts, layout } = data;
+	const { name, pronouns, subtitleText, subtitleOrganization, subtitleUrl, titles, email, phone, website, socialLinks, colors, fonts, layout } = data;
 	const hasImage = !!(data.profileImageUrl || data.profileImage);
 	const hasContact = !!(email || phone || website);
 	const hasSocial = socialLinks.length > 0 && socialLinks.some((s) => s.url);
@@ -60,8 +60,26 @@ ${imageComment}
 		infoContent += '\n';
 	}
 
-	// Divider after name
-	if (name && (hasTitles || hasContact)) {
+	// Subtitle
+	if (subtitleText || subtitleOrganization) {
+		let parts = '';
+		if (subtitleText) {
+			parts += escapeTypst(subtitleText);
+		}
+		if (subtitleOrganization) {
+			if (parts) parts += ', ';
+			if (subtitleUrl) {
+				const href = subtitleUrl.startsWith('http') ? subtitleUrl : `https://${subtitleUrl}`;
+				parts += `*#link("${escapeTypst(href)}")[${escapeTypst(subtitleOrganization)}]*`;
+			} else {
+				parts += `*${escapeTypst(subtitleOrganization)}*`;
+			}
+		}
+		infoContent += `#text(size: ${fonts.subtitleSize}pt, fill: ${hexToTypstRgb(colors.titleColor)})[${parts}]\n`;
+	}
+
+	// Divider after name/subtitle
+	if ((name || subtitleText || subtitleOrganization) && (hasTitles || hasContact)) {
 		if (layout.dividerStyle !== 'none') {
 			const stroke = layout.dividerStyle === 'dashed'
 				? `(dash: "dashed", paint: ${hexToTypstRgb(colors.dividerColor)}, thickness: 0.5pt)`
