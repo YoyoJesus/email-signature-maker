@@ -107,7 +107,7 @@
 	];
 </script>
 
-<div class="min-h-screen bg-slate-100">
+<div class="min-h-screen bg-slate-100 flex flex-col">
 	<!-- Header -->
 	<header class="bg-white border-b border-slate-200 px-6 py-3">
 		<div class="max-w-[1600px] mx-auto flex items-center justify-between">
@@ -124,7 +124,7 @@
 	</header>
 
 	<!-- Main content -->
-	<div class="max-w-[1600px] mx-auto p-4 lg:p-6">
+	<div class="flex-1 max-w-[1600px] mx-auto p-4 lg:p-6 w-full">
 		<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 			<!-- Left: Form Panel -->
 			<div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
@@ -499,6 +499,13 @@
 			</div>
 		</div>
 	</div>
+
+	<!-- Footer -->
+	<footer class="border-t border-slate-200 bg-white mt-6 px-6 py-4">
+		<div class="max-w-[1600px] mx-auto text-center text-sm text-slate-400">
+			Made by <a href="https://asternberg.xyz" class="text-blue-500 hover:text-blue-600 transition-colors">Austin Sternberg</a>
+		</div>
+	</footer>
 </div>
 
 <style>
