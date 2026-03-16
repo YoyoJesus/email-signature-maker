@@ -149,7 +149,7 @@
 						<div class="space-y-4">
 							<div>
 								<label for="name">Full Name</label>
-								<input type="text" id="name" bind:value={data.name} placeholder="Austin Sternberg" />
+								<input type="text" id="name" bind:value={data.name} placeholder="Jane Doe" />
 							</div>
 
 							<div>
@@ -173,7 +173,7 @@
 											<input
 												type="text"
 												bind:value={title.title}
-												placeholder="Title (e.g. President)"
+												placeholder="Title / Role"
 											/>
 										</div>
 										<div class="flex-1">
@@ -263,15 +263,15 @@
 						<div class="space-y-4">
 							<div>
 								<label for="email">Email</label>
-								<input type="email" id="email" bind:value={data.email} placeholder="you@example.com" />
+								<input type="email" id="email" bind:value={data.email} placeholder="email@example.com" />
 							</div>
 							<div>
 								<label for="phone">Phone</label>
-								<input type="tel" id="phone" bind:value={data.phone} placeholder="+1 (555) 123-4567" />
+								<input type="tel" id="phone" bind:value={data.phone} placeholder="(555) 555-5555" />
 							</div>
 							<div>
 								<label for="website">Website</label>
-								<input type="url" id="website" bind:value={data.website} placeholder="yoursite.com" />
+								<input type="url" id="website" bind:value={data.website} placeholder="example.com" />
 							</div>
 						</div>
 
