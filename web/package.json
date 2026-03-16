@@ -1,0 +1,30 @@
+{
+  "name": "email-signature-maker",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "setup-wasm": "node scripts/setup-wasm.js"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-static": "^3.0.0",
+    "@sveltejs/kit": "^2.50.0",
+    "@sveltejs/vite-plugin-svelte": "^5.0.0",
+    "@tailwindcss/postcss": "^4.1.0",
+    "postcss": "^8.5.0",
+    "svelte": "^5.48.0",
+    "svelte-check": "^4.0.0",
+    "tailwindcss": "^4.1.0",
+    "typescript": "^5.9.0",
+    "vite": "^6.0.0",
+    "vite-plugin-wasm": "^3.4.1",
+    "vite-plugin-top-level-await": "^1.4.4"
+  },
+  "dependencies": {
+    "@myriaddreamin/typst.ts": "^0.7.0-rc2"
+  },
+  "type": "module"
+}
