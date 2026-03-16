@@ -66,6 +66,8 @@ export interface SignatureData {
 	phone: string;
 	website: string;
 	socialLinks: SocialLink[];
+	ctaText: string;
+	ctaUrl: string;
 	colors: ColorSettings;
 	fonts: FontSettings;
 	layout: LayoutSettings;
@@ -84,6 +86,8 @@ export const defaultSignatureData: SignatureData = {
 	phone: '',
 	website: '',
 	socialLinks: [],
+	ctaText: '',
+	ctaUrl: '',
 	colors: {
 		nameColor: '#1a1a2e',
 		titleColor: '#333333',

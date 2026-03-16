@@ -162,7 +162,7 @@
 							</div>
 
 							<div>
-								<label class="!mb-1">Subtitle <span class="text-slate-400">(optional)</span></label>
+								<label class="!mb-1">Education / Company <span class="text-slate-400">(optional)</span></label>
 								<div class="flex gap-2">
 									<div class="flex-1">
 										<input type="text" bind:value={data.subtitleText} placeholder="Computer Science Student" />
@@ -344,6 +344,19 @@
 									</button>
 								</div>
 							{/each}
+
+							<!-- CTA / Action Link -->
+							<div class="border-t border-slate-200 pt-4 mt-4">
+								<label class="!mb-1">Action Link <span class="text-slate-400">(optional — e.g. "Book a Meeting")</span></label>
+								<div class="flex gap-2">
+									<div class="flex-1">
+										<input type="text" bind:value={data.ctaText} placeholder="Book a Meeting" />
+									</div>
+									<div class="flex-1">
+										<input type="url" bind:value={data.ctaUrl} placeholder="https://cal.com/you" />
+									</div>
+								</div>
+							</div>
 						</div>
 
 					<!-- STYLE TAB -->

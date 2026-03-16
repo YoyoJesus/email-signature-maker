@@ -154,6 +154,12 @@ ${imageComment}
 		}
 	}
 
+	// CTA / action link
+	if (data.ctaText && data.ctaUrl) {
+		const href = data.ctaUrl.startsWith('http') ? data.ctaUrl : `https://${data.ctaUrl}`;
+		infoContent += `#v(4pt)\n#text(size: ${fonts.textSize}pt, weight: "bold")[#link("${escapeTypst(href)}")[${escapeTypst(data.ctaText)}]]\n`;
+	}
+
 	// Wrap in layout
 	if (layout.layout === 'horizontal' && hasImage) {
 		code += `#grid(

@@ -122,6 +122,11 @@ export function generateSignatureHtml(data: SignatureData): string {
 				.join('')}</td></tr>`
 		: '';
 
+	// Build CTA / action link
+	const ctaHtml = (data.ctaText && data.ctaUrl)
+		? `<tr><td style="padding-top: 6px;"><a href="${escapeHtml(data.ctaUrl.startsWith('http') ? data.ctaUrl : `https://${data.ctaUrl}`)}" style="font-family: ${fonts.fontFamily}; font-size: ${fonts.textSize}px; color: ${colors.linkColor}; text-decoration: none; font-weight: bold;">${escapeHtml(data.ctaText)}</a></td></tr>`
+		: '';
+
 	if (layout.layout === 'stacked') {
 		// Stacked layout: image on top, then info below
 		return `<table cellpadding="0" cellspacing="0" border="0" style="font-family: ${fonts.fontFamily};">
@@ -132,6 +137,7 @@ ${hasTitles || hasContact ? dividerHtml : ''}
 ${titlesHtml ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${titlesHtml}</table></td></tr>` : ''}
 ${hasContact ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${contactHtml}</table></td></tr>` : ''}
 ${socialHtml ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${socialHtml}</table></td></tr>` : ''}
+${ctaHtml ? `<tr><td><table cellpadding="0" cellspacing="0" border="0">${ctaHtml}</table></td></tr>` : ''}
 </table>`;
 	}
 
@@ -149,6 +155,7 @@ ${titlesHtml}
 ${hasContact && (hasTitles || nameHtml) ? dividerHtml : ''}
 ${contactHtml}
 ${socialHtml}
+${ctaHtml}
 </table>
 </td>
 </tr>
