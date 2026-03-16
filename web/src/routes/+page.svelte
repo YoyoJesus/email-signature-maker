@@ -16,18 +16,22 @@
 	let activeTab: string = $state('info');
 	let viewMode: string = $state('preview');
 	let copied = $state(false);
+	let loaded = $state(false);
 
 	let signatureHtml = $derived(generateSignatureHtml(data));
 	let typstCode = $derived(generateTypstCode(data));
 
-	// Persist state
+	// Persist state — only after initial load to avoid overwriting saved data
 	$effect(() => {
-		signatureStore.set(data);
-		signatureStore.saveToStorage(data);
+		if (loaded) {
+			signatureStore.set(data);
+			signatureStore.saveToStorage(data);
+		}
 	});
 
 	onMount(() => {
 		data = signatureStore.loadFromStorage();
+		loaded = true;
 	});
 
 	// Image upload handler
@@ -44,7 +48,7 @@
 
 	// Title management
 	function addTitle() {
-		data.titles = [...data.titles, { title: '', organization: '' }];
+		data.titles = [...data.titles, { title: '', organization: '', url: '' }];
 	}
 	function removeTitle(index: number) {
 		data.titles = data.titles.filter((_, i) => i !== index);
@@ -168,19 +172,26 @@
 									</button>
 								</div>
 								{#each data.titles as title, i}
-									<div class="flex gap-2 mb-2">
-										<div class="flex-1">
+									<div class="flex gap-2 mb-2 flex-wrap">
+										<div class="flex-1 min-w-[120px]">
 											<input
 												type="text"
 												bind:value={title.title}
 												placeholder="Title / Role"
 											/>
 										</div>
-										<div class="flex-1">
+										<div class="flex-1 min-w-[120px]">
 											<input
 												type="text"
 												bind:value={title.organization}
 												placeholder="Organization"
+											/>
+										</div>
+										<div class="flex-1 min-w-[120px]">
+											<input
+												type="url"
+												bind:value={title.url}
+												placeholder="Organization URL (optional)"
 											/>
 										</div>
 										{#if data.titles.length > 1}

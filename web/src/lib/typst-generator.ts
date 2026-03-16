@@ -70,15 +70,23 @@ export function generateTypstCode(data: SignatureData): string {
 	// Titles
 	const filteredTitles = titles.filter((t) => t.title || t.organization);
 	for (const t of filteredTitles) {
-		let titleText = '';
-		if (t.title && t.organization) {
-			titleText = `#text(size: ${fonts.titleSize}pt, fill: ${hexToTypstRgb(colors.titleColor)})[*${escapeTypst(t.title)}*, ${escapeTypst(t.organization)}]`;
-		} else if (t.title) {
-			titleText = `#text(size: ${fonts.titleSize}pt, fill: ${hexToTypstRgb(colors.titleColor)})[*${escapeTypst(t.title)}*]`;
-		} else {
-			titleText = `#text(size: ${fonts.titleSize}pt, fill: ${hexToTypstRgb(colors.titleColor)})[${escapeTypst(t.organization)}]`;
+		const titlePart = t.title ? `*${escapeTypst(t.title)}*` : '';
+		let orgPart = '';
+		if (t.organization) {
+			if (t.url) {
+				const href = t.url.startsWith('http') ? t.url : `https://${t.url}`;
+				orgPart = `#link("${escapeTypst(href)}")[${escapeTypst(t.organization)}]`;
+			} else {
+				orgPart = escapeTypst(t.organization);
+			}
 		}
-		infoContent += `${titleText}\n`;
+		let combined = '';
+		if (titlePart && orgPart) {
+			combined = `${titlePart}, ${orgPart}`;
+		} else {
+			combined = titlePart || orgPart;
+		}
+		infoContent += `#text(size: ${fonts.titleSize}pt, fill: ${hexToTypstRgb(colors.titleColor)})[${combined}]\n`;
 	}
 
 	// Divider before contact

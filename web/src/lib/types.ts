@@ -1,6 +1,7 @@
 export interface TitleEntry {
 	title: string;
 	organization: string;
+	url: string;
 }
 
 export interface SocialLink {
@@ -71,7 +72,7 @@ export const defaultSignatureData: SignatureData = {
 	pronouns: '',
 	profileImage: '',
 	profileImageUrl: '',
-	titles: [{ title: '', organization: '' }],
+	titles: [{ title: '', organization: '', url: '' }],
 	email: '',
 	phone: '',
 	website: '',

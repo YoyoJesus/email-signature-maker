@@ -52,13 +52,22 @@ export function generateSignatureHtml(data: SignatureData): string {
 	const titlesHtml = titles
 		.filter((t) => t.title || t.organization)
 		.map((t) => {
+			let titlePart = t.title ? `<strong>${escapeHtml(t.title)}</strong>` : '';
+			let orgPart = '';
+			if (t.organization) {
+				const orgText = escapeHtml(t.organization);
+				if (t.url) {
+					const href = t.url.startsWith('http') ? t.url : `https://${t.url}`;
+					orgPart = `<a href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none;">${orgText}</a>`;
+				} else {
+					orgPart = orgText;
+				}
+			}
 			let text = '';
-			if (t.title && t.organization) {
-				text = `<strong>${escapeHtml(t.title)}</strong>, ${escapeHtml(t.organization)}`;
-			} else if (t.title) {
-				text = `<strong>${escapeHtml(t.title)}</strong>`;
+			if (titlePart && orgPart) {
+				text = `${titlePart}, ${orgPart}`;
 			} else {
-				text = escapeHtml(t.organization);
+				text = titlePart || orgPart;
 			}
 			return `<tr><td style="font-family: ${fonts.fontFamily}; font-size: ${fonts.titleSize}px; color: ${colors.titleColor}; padding-bottom: 2px;">${text}</td></tr>`;
 		})
