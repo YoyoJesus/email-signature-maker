@@ -56,7 +56,7 @@ export function generateSignatureHtml(data: SignatureData): string {
 			const orgBold = `<strong>${escapeHtml(subtitleOrganization)}</strong>`;
 			if (subtitleUrl) {
 				const href = subtitleUrl.startsWith('http') ? subtitleUrl : `https://${subtitleUrl}`;
-				orgPart = `<a href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none; font-weight: bold;">${escapeHtml(subtitleOrganization)}</a>`;
+				orgPart = `<a target="_blank" href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none; font-weight: bold;">${escapeHtml(subtitleOrganization)}</a>`;
 			} else {
 				orgPart = orgBold;
 			}
@@ -78,7 +78,7 @@ export function generateSignatureHtml(data: SignatureData): string {
 				const orgText = escapeHtml(t.organization);
 				if (t.url) {
 					const href = t.url.startsWith('http') ? t.url : `https://${t.url}`;
-					orgPart = `<a href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none;">${orgText}</a>`;
+					orgPart = `<a target="_blank" href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none;">${orgText}</a>`;
 				} else {
 					orgPart = orgText;
 				}
@@ -96,15 +96,15 @@ export function generateSignatureHtml(data: SignatureData): string {
 	// Build contact info
 	const contactParts: string[] = [];
 	if (phone) {
-		contactParts.push(`<a href="tel:${escapeHtml(phone)}" style="color: ${colors.linkColor}; text-decoration: none;">${escapeHtml(phone)}</a>`);
+		contactParts.push(`<a target="_blank" href="tel:${escapeHtml(phone)}" style="color: ${colors.linkColor}; text-decoration: none;">${escapeHtml(phone)}</a>`);
 	}
 	if (email) {
-		contactParts.push(`<a href="mailto:${escapeHtml(email)}" style="color: ${colors.linkColor}; text-decoration: none;">${escapeHtml(email)}</a>`);
+		contactParts.push(`<a target="_blank" href="mailto:${escapeHtml(email)}" style="color: ${colors.linkColor}; text-decoration: none;">${escapeHtml(email)}</a>`);
 	}
 	if (website) {
 		const href = website.startsWith('http') ? website : `https://${website}`;
 		const display = website.replace(/^https?:\/\//, '');
-		contactParts.push(`<a href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none;">${escapeHtml(display)}</a>`);
+		contactParts.push(`<a target="_blank" href="${escapeHtml(href)}" style="color: ${colors.linkColor}; text-decoration: none;">${escapeHtml(display)}</a>`);
 	}
 	const contactHtml = contactParts.length > 0
 		? `<tr><td style="font-family: ${fonts.fontFamily}; font-size: ${fonts.textSize}px; color: ${colors.textColor}; padding-bottom: 4px;">${contactParts.join(' &nbsp;|&nbsp; ')}</td></tr>`
@@ -117,14 +117,14 @@ export function generateSignatureHtml(data: SignatureData): string {
 				.map((s) => {
 					const iconUri = getSocialIconDataUri(s.platform, 18);
 					const href = s.url.startsWith('http') ? s.url : `https://${s.url}`;
-					return `<a href="${escapeHtml(href)}" style="display: inline-block; margin-right: 6px; text-decoration: none;"><img src="${iconUri}" width="18" height="18" alt="${s.platform}" style="display: inline-block; vertical-align: middle;" /></a>`;
+					return `<a target="_blank" href="${escapeHtml(href)}" style="display: inline-block; margin-right: 6px; text-decoration: none;"><img src="${iconUri}" width="18" height="18" alt="${s.platform}" style="display: inline-block; vertical-align: middle;" /></a>`;
 				})
 				.join('')}</td></tr>`
 		: '';
 
 	// Build CTA / action link
 	const ctaHtml = (data.ctaText && data.ctaUrl)
-		? `<tr><td style="padding-top: 6px;"><a href="${escapeHtml(data.ctaUrl.startsWith('http') ? data.ctaUrl : `https://${data.ctaUrl}`)}" style="font-family: ${fonts.fontFamily}; font-size: ${fonts.textSize}px; color: ${colors.linkColor}; text-decoration: none; font-weight: bold;">${escapeHtml(data.ctaText)}</a></td></tr>`
+		? `<tr><td style="padding-top: 6px;"><a target="_blank" href="${escapeHtml(data.ctaUrl.startsWith('http') ? data.ctaUrl : `https://${data.ctaUrl}`)}" style="font-family: ${fonts.fontFamily}; font-size: ${fonts.textSize}px; color: ${colors.linkColor}; text-decoration: none; font-weight: bold;">${escapeHtml(data.ctaText)}</a></td></tr>`
 		: '';
 
 	if (layout.layout === 'stacked') {
