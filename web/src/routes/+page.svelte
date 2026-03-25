@@ -95,6 +95,24 @@
 		}
 	}
 
+	// Copy Typst code to clipboard
+	async function copyTypst() {
+		try {
+			await navigator.clipboard.writeText(typstCode);
+			copied = true;
+			setTimeout(() => (copied = false), 2000);
+		} catch {
+			const textarea = document.createElement('textarea');
+			textarea.value = typstCode;
+			document.body.appendChild(textarea);
+			textarea.select();
+			document.execCommand('copy');
+			document.body.removeChild(textarea);
+			copied = true;
+			setTimeout(() => (copied = false), 2000);
+		}
+	}
+
 	// Reset all data
 	function resetData() {
 		if (confirm('Reset all fields to defaults?')) {
@@ -513,6 +531,12 @@
 							class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors cursor-pointer"
 						>
 							Copy HTML
+						</button>
+						<button
+							onclick={copyTypst}
+							class="text-xs bg-slate-100 text-slate-600 px-3 py-1.5 rounded hover:bg-slate-200 transition-colors cursor-pointer"
+						>
+							Copy Typst
 						</button>
 					</div>
 				</div>

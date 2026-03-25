@@ -70,7 +70,7 @@ ${imageComment}
 			if (parts) parts += ', ';
 			if (subtitleUrl) {
 				const href = subtitleUrl.startsWith('http') ? subtitleUrl : `https://${subtitleUrl}`;
-				parts += `*#link("${escapeTypst(href)}")[${escapeTypst(subtitleOrganization)}]*`;
+				parts += `*#text(fill: ${hexToTypstRgb(colors.linkColor)})[#link("${escapeHtml(href)}")[${escapeTypst(subtitleOrganization)}]]*`;
 			} else {
 				parts += `*${escapeTypst(subtitleOrganization)}*`;
 			}
@@ -100,7 +100,7 @@ ${imageComment}
 		if (t.organization) {
 			if (t.url) {
 				const href = t.url.startsWith('http') ? t.url : `https://${t.url}`;
-				orgPart = `#link("${escapeTypst(href)}")[${escapeTypst(t.organization)}]`;
+				orgPart = `#text(fill: ${hexToTypstRgb(colors.linkColor)})[#link("${escapeTypst(href)}")[${escapeTypst(t.organization)}]]`;
 			} else {
 				orgPart = escapeTypst(t.organization);
 			}
@@ -127,15 +127,15 @@ ${imageComment}
 	// Contact info
 	const contactParts: string[] = [];
 	if (phone) {
-		contactParts.push(`#link("tel:${escapeTypst(phone)}")[${escapeTypst(phone)}]`);
+		contactParts.push(`#text(fill: ${hexToTypstRgb(colors.linkColor)})[#link("tel:${escapeTypst(phone)}")[${escapeTypst(phone)}]]`);
 	}
 	if (email) {
-		contactParts.push(`#link("mailto:${escapeTypst(email)}")[${escapeTypst(email)}]`);
+		contactParts.push(`#text(fill: ${hexToTypstRgb(colors.linkColor)})[#link("mailto:${escapeTypst(email)}")[${escapeTypst(email)}]]`);
 	}
 	if (website) {
 		const href = website.startsWith('http') ? website : `https://${website}`;
 		const display = website.replace(/^https?:\/\//, '');
-		contactParts.push(`#link("${escapeTypst(href)}")[${escapeTypst(display)}]`);
+		contactParts.push(`#text(fill: ${hexToTypstRgb(colors.linkColor)})[#link("${escapeTypst(href)}")[${escapeTypst(display)}]]`);
 	}
 	if (contactParts.length > 0) {
 		infoContent += `#text(size: ${fonts.textSize}pt)[${contactParts.join(' | ')}]\n`;
@@ -147,7 +147,7 @@ ${imageComment}
 			.filter((s) => s.url)
 			.map((s) => {
 				const href = s.url.startsWith('http') ? s.url : `https://${s.url}`;
-				return `#link("${escapeTypst(href)}")[${s.platform}]`;
+				return `#text(fill: ${hexToTypstRgb(colors.linkColor)})[#link("${escapeTypst(href)}")[${s.platform}]]`;
 			});
 		if (socialParts.length > 0) {
 			infoContent += `#v(2pt)\n#text(size: ${fonts.textSize}pt)[${socialParts.join(' #h(6pt) ')}]\n`;
@@ -157,7 +157,7 @@ ${imageComment}
 	// CTA / action link
 	if (data.ctaText && data.ctaUrl) {
 		const href = data.ctaUrl.startsWith('http') ? data.ctaUrl : `https://${data.ctaUrl}`;
-		infoContent += `#v(4pt)\n#text(size: ${fonts.textSize}pt, weight: "bold")[#link("${escapeTypst(href)}")[${escapeTypst(data.ctaText)}]]\n`;
+		infoContent += `#v(4pt)\n#text(size: ${fonts.textSize}pt, weight: "bold", fill: ${hexToTypstRgb(colors.linkColor)})[#link("${escapeTypst(href)}")[${escapeTypst(data.ctaText)}]]\n`;
 	}
 
 	// Wrap in layout
